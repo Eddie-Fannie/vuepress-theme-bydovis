@@ -3,36 +3,39 @@
     class="home"
     aria-labelledby="main-title"
   >
-    <header class="hero">
-      <img
-        v-if="data.heroImage"
-        :src="$withBase(data.heroImage)"
-        :alt="data.heroAlt || 'hero'"
-      >
+    <header class="hero" :style="{backgroundImage: 'url('+data.heroBannerImage+')'}">
+      <div class="mess-container">
+          <img
+          v-if="data.heroImage"
+          :src="$withBase(data.heroImage)"
+          :alt="data.heroAlt || 'hero'"
+        >
 
-      <h1
-        v-if="data.heroText !== null"
-        id="main-title"
-      >
-        {{ data.heroText || $title || 'Hello' }}
-      </h1>
+        <h1
+          v-if="data.heroText !== null"
+          id="main-title"
+        >
+          {{ data.heroText || $title || 'Hello' }}
+        </h1>
 
-      <p
-        v-if="data.tagline !== null"
-        class="description"
-      >
-        {{ data.tagline || $description || 'Welcome to your VuePress site' }}
-      </p>
+        <p
+          v-if="data.tagline !== null"
+          class="description"
+        >
+          {{ data.tagline || $description || 'Welcome to your VuePress site' }}
+        </p>
 
-      <p
-        v-if="data.actionText && data.actionLink"
-        class="action"
-      >
-        <NavLink
-          class="action-button"
-          :item="actionLink"
-        />
-      </p>
+        <p
+          v-if="data.actionText && data.actionLink"
+          class="action"
+        >
+          <NavLink
+            class="action-button"
+            :item="actionLink"
+          />
+        </p>
+      </div>
+      <Carousel/>
     </header>
 
     <div
@@ -62,11 +65,12 @@
 
 <script>
 import NavLink from '@theme/components/NavLink.vue'
+import Carousel from '@theme/components/Carousel.vue'
 
 export default {
   name: 'Home',
 
-  components: { NavLink },
+  components: { NavLink, Carousel },
 
   computed: {
     data () {
@@ -85,26 +89,35 @@ export default {
 
 <style lang="stylus">
 .home
-  padding $navbarHeight 2rem 0
-  max-width $homePageWidth
+  // padding $navbarHeight 2rem 0
+  // max-width $homePageWidth
   margin 0px auto
   display block
   .hero
     text-align center
+    min-height 480px
+    background: no-repeat center 
+    background-size: cover
+    display flex
+    justify-content flex-start
+    align-items center
+    .mess-container 
+      width 30%
     img
       max-width: 100%
       max-height 280px
       display block
-      margin 3rem auto 1.5rem
+      // margin-top 3rem
+      // margin 3rem auto 1.5rem
     h1
       font-size 3rem
     h1, .description, .action
       margin 1.8rem auto
     .description
       max-width 35rem
-      font-size 1.6rem
+      font-size 1.125rem 
       line-height 1.3
-      color lighten($textColor, 40%)
+      color lighten($bannerTextColor, 40%)
     .action-button
       display inline-block
       font-size 1.2rem
